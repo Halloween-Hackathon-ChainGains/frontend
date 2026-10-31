@@ -4,6 +4,8 @@ const fit = (s: string, max = 32) => (s.length <= max ? s : s.slice(0, max - 1).
 
 const short = (item: string, max = 16) => (item.length <= max ? item : item.slice(0, max - 1).trimEnd() + "…");
 
+const a = (s: string) => (/^[aeiou]/i.test(s) ? `an ${s}` : `a ${s}`);
+
 function pick<T>(xs: T[], r = Math.random) {
   return xs[Math.floor(r() * xs.length)];
 }
@@ -12,11 +14,11 @@ function pick<T>(xs: T[], r = Math.random) {
 export function chatScript(item: string, askerName: string, giverName: string): { who: "asker" | "giver"; text: string }[] {
   const it = short(item);
   const ask = pick([
-    `Anyone got a ${it}?`,
-    `I need a ${it}!`,
-    `Still hunting a ${it}…`,
-    `Is that a ${it}?`,
-    `Looking for a ${it}`,
+    `Anyone got ${a(it)}?`,
+    `I need ${a(it)}!`,
+    `Still hunting ${a(it)}…`,
+    `Is that ${a(it)}?`,
+    `Looking for ${a(it)}`,
   ]);
   const answer = pick([
     "I do!",
@@ -51,7 +53,7 @@ export function greeting() {
 }
 
 export function arrivalLine(have: string[]) {
-  if (have[0]) return fit(pick([`Who needs a ${short(have[0])}?`, `Got a ${short(have[0])} to swap!`, "Hi town!"]));
+  if (have[0]) return fit(pick([`Who needs ${a(short(have[0]))}?`, `Got ${a(short(have[0]))} to swap!`, "Hi town!"]));
   return "Hi town!";
 }
 

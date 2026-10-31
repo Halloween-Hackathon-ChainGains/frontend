@@ -18,7 +18,8 @@ import styles from "./Join.module.css";
 const KEY_ID = "loop:personId";
 const KEY_NAME = "loop:name";
 const KEY_PROFILE = "loop:profile";
-const isDev = process.env.NODE_ENV !== "production";
+/** No backend yet (or it is down): the in-browser simulator stands in, so the demo always works. */
+const simulatorStandsIn = (status: number) => status === 404 || status === 405 || status >= 500;
 
 type Field = "name" | "have" | "want" | null;
 
@@ -32,7 +33,7 @@ function readStored() {
   }
 }
 
-export function JoinFlow() {
+export function JoinFlow({ embedded = false, onSeeInTown }: { embedded?: boolean; onSeeInTown?: (id: string) => void }) {
   const params = useSearchParams();
   const forceMock = params.get("mock") === "1";
   const reduced = !!useReducedMotion();
@@ -67,13 +68,15 @@ export function JoinFlow() {
   return (
     <LayoutGroup>
       <div className={styles.page}>
-        <header className={styles.top}>
-          <Mascot size={36} />
-          <span className={styles.wordmark}>Loop</span>
-        </header>
+        {!embedded && (
+          <header className={styles.top}>
+            <Mascot size={36} />
+            <span className={styles.wordmark}>Loop</span>
+          </header>
+        )}
         <AnimatePresence mode="popLayout" initial={false}>
           {me ? (
-            <Joined key="joined" me={me} mock={usedMock} reduced={reduced} onStartOver={startOver} />
+            <Joined key="joined" me={me} mock={usedMock} reduced={reduced} onStartOver={startOver} onSeeInTown={onSeeInTown} />
           ) : (
             <JoinForm
               key="form"
@@ -150,7 +153,7 @@ function JoinForm({ reduced, forceMock, onJoined }: { reduced: boolean; forceMoc
       }
       const res = await fetch("/api/people", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       if (!res.ok) {
-        if (isDev && (res.status === 404 || res.status >= 500)) {
+        if (simulatorStandsIn(res.status)) {
           onJoined(joinMock(), body.name, true, body);
           return;
         }
@@ -160,7 +163,7 @@ function JoinForm({ reduced, forceMock, onJoined }: { reduced: boolean; forceMoc
       if (!id) throw new Error("No id in response");
       onJoined(id, body.name, false, body);
     } catch (err) {
-      if (isDev && err instanceof TypeError) {
+      if (err instanceof TypeError) {
         onJoined(joinMock(), body.name, true, body);
         return;
       }
@@ -249,7 +252,7 @@ function JoinForm({ reduced, forceMock, onJoined }: { reduced: boolean; forceMoc
   );
 }
 
-function Joined({ me: who, mock, reduced, onStartOver }: { me: { id: string; name: string }; mock: boolean; reduced: boolean; onStartOver: () => void }) {
+function Joined({ me: who, mock, reduced, onStartOver, onSeeInTown }: { me: { id: string; name: string }; mock: boolean; reduced: boolean; onStartOver: () => void; onSeeInTown?: (id: string) => void }) {
   const { data, loaded } = useLoops({ mock, pauseWhenHidden: true });
   const profile = useMemo(() => readProfile(), []);
   const person = data.people.find((p) => p.id === who.id);
@@ -306,6 +309,11 @@ function Joined({ me: who, mock, reduced, onStartOver }: { me: { id: string; nam
         </p>
       </div>
       <GateStrip name={who.name} happy={phase !== "talking" && phase !== "declined"} bubble={bubble} reduced={reduced} />
+      {onSeeInTown && (
+        <button className={styles.seeTown} onClick={() => onSeeInTown(who.id)}>
+          Find my bot in town
+        </button>
+      )}
       <Feed beats={beats} typing={typing} data={data} me={me} mock={mock} reduced={reduced} onPhase={setProposalPhase} />
       <button className={styles.startOver} onClick={onStartOver}>Not you? Start over</button>
     </motion.section>

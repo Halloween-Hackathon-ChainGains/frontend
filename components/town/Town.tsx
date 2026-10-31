@@ -25,6 +25,7 @@ const EDGE = "rgba(110,124,156,0.55)";
 export interface TownHandle {
   fitTown: () => void;
   flyToLoop: (loopId: string) => void;
+  flyToPerson: (id: string) => void;
 }
 
 interface TownProps {
@@ -168,6 +169,13 @@ export const Town = forwardRef<TownHandle, TownProps>(function Town(
         const d = DEAL_CIRCLES[c];
         flyTo(d.x, d.y, Math.max(fitK.current, 2.2));
         returnTimer.current = setTimeout(fitTown, 7000);
+      },
+      flyToPerson: (id: string) => {
+        cancelReturn();
+        const n = director.nodes.get(id);
+        if (!n) return;
+        flyTo(n.x, n.y - 20, Math.max(fitK.current, 2.4));
+        returnTimer.current = setTimeout(fitTown, 8000);
       },
     }),
     [fitTown, flyTo, cancelReturn, director],

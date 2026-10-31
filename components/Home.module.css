@@ -11,18 +11,20 @@
   display: flex;
   align-items: center;
   gap: var(--s3);
-  padding: var(--s2) var(--s3);
+  padding: var(--s1) var(--s3);
+  padding-top: max(var(--s1), env(safe-area-inset-top));
   border-bottom: 1px solid var(--hairline);
+  min-height: 4.5rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .wordmark {
-  font-size: calc(var(--fs-title) * 1.25);
+  font-size: calc(var(--fs-title) * 1.2);
   font-weight: 800;
   letter-spacing: -0.03em;
 }
@@ -32,13 +34,17 @@
   font-size: var(--fs-tagline);
   color: var(--text-2);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.pills {
+.right {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: var(--s1);
+  gap: var(--s2);
 }
 
 .pill {
@@ -51,10 +57,66 @@
   white-space: nowrap;
 }
 
+/* Segmented control */
+.tabs {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+}
+
+.tab {
+  min-height: 44px;
+  min-width: 5.5rem;
+  padding: 0 1.1rem;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--text-2);
+  font-size: clamp(16px, 1vw, 22px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.tab[aria-selected="true"] {
+  background: var(--card-hi);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover:not([aria-selected="true"]) {
+    color: var(--text);
+  }
+}
+
+.views {
+  position: relative;
+  min-height: 0;
+}
+
 .main {
+  position: absolute;
+  inset: 0;
   display: grid;
   grid-template-columns: 70fr 30fr;
   min-height: 0;
+}
+
+/* Hidden but still laid out, so the canvas keeps its size and the town keeps living. */
+.main[data-active="false"] {
+  visibility: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg);
 }
 
 .townWrap {
@@ -64,15 +126,22 @@
 }
 
 @media (max-width: 900px) {
-  .main {
-    grid-template-columns: 1fr;
-    grid-template-rows: 60vh auto;
-  }
-  .shell {
-    overflow: auto;
-    height: auto;
+  .header {
+    gap: var(--s2);
+    padding-inline: var(--s2);
   }
   .tagline {
     display: none;
+  }
+  .tab {
+    min-width: 0;
+    padding: 0 0.85rem;
+  }
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 55% 45%;
+  }
+  .main > aside {
+    overflow-y: auto;
   }
 }

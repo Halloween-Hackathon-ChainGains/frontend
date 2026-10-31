@@ -365,3 +365,19 @@
     backdrop-filter: none;
   }
 }
+
+.seeTown {
+  min-height: 50px;
+  border-radius: 14px;
+  border: 1.5px solid var(--accent);
+  background: none;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms var(--ease-out);
+}
+
+.seeTown:active {
+  transform: scale(0.97);
+}

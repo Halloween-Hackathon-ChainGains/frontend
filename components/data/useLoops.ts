@@ -7,7 +7,6 @@ import { EMPTY_TOWN, type TownData } from "./types";
 
 const POLL_MS = 2000;
 const FAILS_BEFORE_PILL = 3;
-const isDev = process.env.NODE_ENV !== "production";
 
 export type ConnectionStatus = "loading" | "ok" | "reconnecting";
 
@@ -66,8 +65,8 @@ export function useLoops({ mock = false, pauseWhenHidden = false }: Options = {}
       try {
         const res = await fetch("/api/loops", { signal: ctrl.signal, cache: "no-store" });
         if (!res.ok) {
-          // In development an absent or broken backend falls back to the simulator, labeled "Demo data".
-          if (isDev && (res.status === 404 || res.status >= 500)) {
+          // No backend yet (404) or a broken one (5xx): the simulator stands in so the town is never empty.
+          if (res.status === 404 || res.status === 405 || res.status >= 500) {
             fallback = true;
             inFlight = false;
             return tick();
@@ -78,7 +77,7 @@ export function useLoops({ mock = false, pauseWhenHidden = false }: Options = {}
         publish(adaptTown(await res.json()), false);
       } catch (err) {
         if (ctrl.signal.aborted) return;
-        if (isDev && err instanceof TypeError) {
+        if (err instanceof TypeError) {
           fallback = true;
         } else if (++fails >= FAILS_BEFORE_PILL) {
           setState((prev) => (prev.status === "reconnecting" ? prev : { ...prev, status: "reconnecting" }));

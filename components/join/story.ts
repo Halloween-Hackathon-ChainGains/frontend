@@ -26,6 +26,8 @@ const eq = (a: string, b: string) => {
   return x === y || x.includes(y) || y.includes(x);
 };
 
+/** "a calc textbook", "an android phone". */
+const a = (s: string) => (/^[aeiou]/i.test(s) ? `an ${s}` : `a ${s}`);
 const short = (s: string, n = 22) => (s.length <= n ? s : s.slice(0, n - 1).trimEnd() + "…");
 const first = (name: string) => name.split(" ")[0];
 
@@ -43,7 +45,7 @@ export function scoutBeats(data: TownData, me: Me): Beat[] {
   for (const w of me.want.slice(0, 2)) {
     const p = others.find((o) => !used.has(o.id) && o.have.some((h) => eq(h, w)));
     if (!p) {
-      beats.push({ kind: "status", text: `Nobody has a ${short(w)} yet. Still asking…` });
+      beats.push({ kind: "status", text: `Nobody has ${a(short(w))} yet. Still asking…` });
       continue;
     }
     used.add(p.id);
@@ -52,10 +54,10 @@ export function scoutBeats(data: TownData, me: Me): Beat[] {
     beats.push(
       say("me", `Hi ${first(p.name)}! Is your ${short(w)} still up for grabs?`, thread),
       say(p, "Yep! What do you have?", thread),
-      say("me", `A ${short(me.have[0] ?? "few things")}. Interested?`, thread),
+      say("me", `${cap(a(short(me.have[0] ?? "few things")))}. Interested?`, thread),
       theyWantMine
-        ? say(p, `Ooh, I do need a ${short(theyWantMine)}!`, thread)
-        : say(p, `Not really. I'm after a ${short(p.want[0] ?? "something else")}.`, thread),
+        ? say(p, `Ooh, I do need ${a(short(theyWantMine))}!`, thread)
+        : say(p, `Not really. I'm after ${a(short(p.want[0] ?? "something else"))}.`, thread),
       theyWantMine
         ? say("me", "Let me check if a loop works for everyone.", thread)
         : say("me", "No problem. I'll find a loop that gets you one.", thread),
@@ -69,8 +71,8 @@ export function scoutBeats(data: TownData, me: Me): Beat[] {
     used.add(q.id);
     const thread = `${q.id}:${h}`;
     beats.push(
-      say(q, `Heard you have a ${short(h)}?`, thread),
-      say("me", `I do! Do you have a ${short(me.want[0] ?? "anything")}?`, thread),
+      say(q, `Heard you have ${a(short(h))}?`, thread),
+      say("me", `I do! Do you have ${a(short(me.want[0] ?? "anything"))}?`, thread),
       say(q, "Sadly no. But I'm in if there's a loop!", thread),
     );
   }
@@ -78,7 +80,7 @@ export function scoutBeats(data: TownData, me: Me): Beat[] {
   // Sparse town: still show some life.
   if (beats.length < 4 && others.length) {
     const p = others[Math.floor(Math.random() * others.length)];
-    beats.push(say(p, "Hi! New here?", `hi:${p.id}`), say("me", `Yes! Looking for a ${short(me.want[0] ?? "good trade")}.`, `hi:${p.id}`));
+    beats.push(say(p, "Hi! New here?", `hi:${p.id}`), say("me", `Yes! Looking for ${a(short(me.want[0] ?? "good trade"))}.`, `hi:${p.id}`));
   }
   beats.push({ kind: "status", text: "Checking the plaza for a loop…" });
   return beats;
