@@ -1,0 +1,75 @@
+.page {
+  min-height: 100dvh;
+  padding: var(--s4);
+  background: #101a33;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.head h1 {
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.back {
+  color: var(--accent);
+}
+
+.page h2 {
+  color: var(--text-2);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: var(--s4) 0 var(--s2);
+}
+
+.switcher {
+  display: flex;
+  gap: var(--s2);
+  margin-top: var(--s3);
+  flex-wrap: wrap;
+}
+
+.opt {
+  flex: 1 1 16rem;
+  display: grid;
+  gap: 0.25rem;
+  text-align: left;
+  padding: var(--s2);
+  border-radius: 16px;
+  border: 2px solid var(--hairline);
+  background: var(--card);
+  cursor: pointer;
+}
+
+.opt span {
+  color: var(--text-2);
+  font-size: 0.9rem;
+}
+
+.opt[aria-checked="true"] {
+  border-color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: var(--s2);
+}
+
+.cell {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: var(--s1);
+}
+
+.cell figcaption {
+  color: var(--text-2);
+  font-size: 0.9rem;
+}

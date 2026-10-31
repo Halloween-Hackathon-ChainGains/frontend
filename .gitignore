@@ -1,0 +1,15 @@
+node_modules
+.next
+.vercel
+.env*.local
+next-env.d.ts
+*.tsbuildinfo
+.env*
+
+# Local tooling, not part of the app
+.claude/
+AGENTS.md
+CLAUDE.md
+loop-frontend-prompt.md
+setup-skills.sh
+skills-lock.json

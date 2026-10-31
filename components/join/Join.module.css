@@ -1,0 +1,367 @@
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: calc(env(safe-area-inset-top) + var(--s2)) calc(env(safe-area-inset-right) + var(--s2)) calc(env(safe-area-inset-bottom) + var(--s4)) calc(env(safe-area-inset-left) + var(--s2));
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 17px;
+  background: var(--bg);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wordmark {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin-top: var(--s2);
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s1);
+  padding: var(--s2) 0 var(--s1);
+}
+
+.previewBot {
+  width: 120px;
+  height: 134px;
+  display: grid;
+  place-items: center;
+}
+
+.bubble {
+  position: relative;
+  margin: 0;
+  max-width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 18px;
+  background: #f4f1ea;
+  color: #14161c;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-2);
+}
+
+.input,
+.chipBox {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1.5px solid var(--hairline);
+  color: var(--text);
+  font-size: 17px;
+  transition: border-color 150ms ease;
+}
+
+.input {
+  padding: 0 1rem;
+}
+
+.input:focus,
+.chipBox:focus-within {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.invalid {
+  border-color: var(--danger) !important;
+}
+
+.chipBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.5rem;
+  cursor: text;
+}
+
+.chips {
+  display: contents;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 36px;
+  padding-left: 0.8rem;
+  border-radius: 999px;
+  background: var(--card-hi);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.chipSelected {
+  background: var(--accent);
+  color: #07090f;
+}
+
+.chipText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+}
+
+/* 44×44 hit area around a small visual. */
+.chipRemove {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -4px -4px -4px 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.chipInput {
+  flex: 1 1 8rem;
+  min-width: 6rem;
+  min-height: 40px;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: 17px;
+  padding: 0 0.5rem;
+}
+
+.chipInput:focus {
+  outline: none;
+}
+
+.chipInput::placeholder,
+.input::placeholder {
+  color: var(--text-3);
+}
+
+.count {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+.error {
+  margin: -0.4rem 0 0;
+  font-size: 15px;
+  color: var(--danger);
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 105, 97, 0.12);
+  color: #ffb4ae;
+  font-size: 15px;
+}
+
+.retry {
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  border: 0;
+  background: #ff6961;
+  color: #07090f;
+  font-weight: 700;
+}
+
+.submit {
+  min-height: 56px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--accent);
+  color: #07090f;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 120ms var(--ease-out), opacity 150ms ease;
+}
+
+.submit:active {
+  transform: scale(0.97);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+}
+
+.joined {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin-top: var(--s3);
+}
+
+.headline {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: -0.5rem 0 0;
+  color: var(--text-2);
+}
+
+.gate {
+  position: relative;
+  height: 200px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #101a33;
+}
+
+.gateArt {
+  position: absolute;
+  inset: auto 0 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gateBubble {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  border-radius: 16px;
+  background: #f4f1ea;
+  color: #14161c;
+  font-weight: 650;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.gateBot {
+  position: absolute;
+  left: calc(50% - 52px);
+  bottom: 30px;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.startOver {
+  align-self: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 0.5rem var(--s3) calc(env(safe-area-inset-bottom) + var(--s3));
+  background: rgba(21, 27, 39, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.5);
+  touch-action: none;
+  z-index: 10;
+}
+
+.grabber {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0 auto var(--s2);
+}
+
+.sheetTitle {
+  margin: 0 0 var(--s1);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.deal {
+  margin: 0 0 var(--s1);
+  font-size: 19px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.sheetNote {
+  color: var(--text-2);
+  font-size: 15px;
+  margin: var(--s1) 0 var(--s2);
+}
+
+.sheetClose {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 0;
+  background: var(--card-hi);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.sheetClose:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .sheet {
+    background: var(--card);
+    backdrop-filter: none;
+  }
+}

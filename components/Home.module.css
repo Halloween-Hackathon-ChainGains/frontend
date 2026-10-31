@@ -1,0 +1,78 @@
+.shell {
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wordmark {
+  font-size: calc(var(--fs-title) * 1.25);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  margin: 0;
+  font-size: var(--fs-tagline);
+  color: var(--text-2);
+  letter-spacing: -0.01em;
+}
+
+.pills {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s1);
+}
+
+.pill {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  color: var(--text-2);
+  font-size: var(--fs-caption);
+  white-space: nowrap;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 70fr 30fr;
+  min-height: 0;
+}
+
+.townWrap {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60vh auto;
+  }
+  .shell {
+    overflow: auto;
+    height: auto;
+  }
+  .tagline {
+    display: none;
+  }
+}

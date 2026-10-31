@@ -1,0 +1,47 @@
+.slot {
+  position: absolute;
+  top: var(--s3);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.banner {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  padding: 0.75rem 1.5rem 0.75rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(13, 17, 25, 0.72);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 2px var(--loop), 0 16px 48px rgba(0, 0, 0, 0.5);
+  color: var(--text);
+  font-size: var(--fs-title);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  will-change: transform, opacity, filter;
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--loop);
+  color: #07090f;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .banner {
+    background: #0d1119;
+    backdrop-filter: none;
+  }
+}
